@@ -9,7 +9,7 @@ const HomePage: FC = () => {
     <main className="py-20">
       <SearchBar />
       {loading ? (
-        <div className="flex justify-center">
+        <div className="flex justify-center mt-20">
           <Loader />
         </div>
       ) : (

@@ -1,6 +1,5 @@
 import { usePokemonSelector } from '../../hooks/usePokemonSelector'
 import { formatPokemonWeight, formatPokemonHeight } from '../../libs/formats'
-import { useState } from 'react'
 
 export const Pokemon = () => {
   const { pokemon } = usePokemonSelector()
