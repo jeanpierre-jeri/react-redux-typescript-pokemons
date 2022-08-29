@@ -1,32 +1,45 @@
-import { FC, PropsWithChildren, useEffect } from 'react'
+import { FC, useEffect, lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Home from '../../pages/Home'
-import Pokemon from '../../pages/Pokemon'
-import { useDispatch } from 'react-redux'
+
+import HomePage from '../../pages/HomePage'
+const PokemonPage = lazy(() => import('../../pages/PokemonPage'))
+
 import { fetchPokemons } from '../../redux/slices/pokemonSlice'
-import { AppDispatch } from '../../redux/store'
-import { CombatList } from '../organisms/CombatList'
+import { usePokemonDispatch } from '../../hooks/usePokemonDispatch'
+import { SideBar } from '../organisms'
+import Loader from '../atoms/Loader/Loader'
 
-interface LayoutProps extends PropsWithChildren {}
-
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
-  const dispatch = useDispatch<AppDispatch>()
+export const Layout: FC = () => {
+  const dispatch = usePokemonDispatch()
   useEffect(() => {
-    dispatch(fetchPokemons())
+    dispatch(fetchPokemons(151))
   }, [])
 
   return (
     <div className="md:flex">
       <main className="md:w-3/4">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/pokemon">
-            <Route path=":pokemon" element={<Pokemon />} />
+            <Route
+              path=":pokemon"
+              element={
+                <Suspense
+                  fallback={
+                    <div className="flex justify-center mt-20">
+                      <Loader />
+                    </div>
+                  }
+                >
+                  <PokemonPage />
+                </Suspense>
+              }
+            />
           </Route>
         </Routes>
       </main>
       <aside className="md:w-1/4 sticky top-0 h-screen">
-        <CombatList />
+        <SideBar />
       </aside>
     </div>
   )
