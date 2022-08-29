@@ -1,5 +1,3 @@
-import { useParams } from 'react-router-dom'
-
 import { usePokemonSelector } from '../../hooks/usePokemonSelector'
 import { PokemonCard } from './PokemonCard'
 import { usePokemonDispatch } from '../../hooks/usePokemonDispatch'

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+
 import { pokeApi } from '../../api/pokeApi'
 import { Pokemons, Pokemon, PokemonResponse, Result } from '../../models'
-import { RootState } from '../store'
 
 export const fetchPokemons = createAsyncThunk(
   '/pokemons',
